@@ -41,7 +41,7 @@
              const updatedTodos = prevState.todos.map(todo => {
                  if (todo.id === id) {
                      todo.completed = !todo.completed
-                     todo.id=-todo.id
+                     
                  }
                  return todo
              })
@@ -55,13 +55,14 @@
      }
      
      render() {
-         const todoItems = this.state.todos.slice(0).reverse().map(item => <TodoItem key={item.id} item={item} handleChange={this.handleChange}/>)
-         
+         const todoItems = this.state.todos.slice(0).reverse().filter(item=>item.completed===false).map(item => <TodoItem key={item.id} item={item} handleChange={this.handleChange}/>)
+         const done= this.state.todos.slice(0).reverse().filter(item=>  item.completed===true).map(item => <TodoItem key={item.id} item={item} handleChange={this.handleChange}/>)
          return (
              <div className="todo-list">
                  <input name="item" value={this.state.newItem} onChange={this.handleInput} />
                  <button onClick={this.addTodo}>add</button>
                  {todoItems}
+                 {done}
              </div>
          )    
      }
